@@ -1,0 +1,42 @@
+##Survey on Real-Time Networks-on-Chip
+## 2017 paper
+
+---
+###Keywords: 
+**sfds,dfsdf,fdsfs**
+
+---
+###2.2 Preliminaries
+
+1. Basic structure of NoC consists of a set of cores  {C 0 ; C 1 ; . . . ; C n }, connected using a set of routers {R 0 ; R 1 ; . . . R n }.
+
+2. The platform is used to run a certain application which consists of a set of tasks {T 0 ; T 1 ; . . . ; T m }, each assigned to a core.
+
+3. Tasks communicate data between each other generating a set of traffic flows {F 0 ; F 1 ; . . .} traversing over the NoC.
+
+4. Flows are structured in a set of packets {p 0 ; p 1 ; . . . ; p k } and packets are structured in a set of flits {f 0 ; f 1 ; . . . ; f z } which is the basic unit transferred over the NoC. 
+
+5. An RTA, mapped onto a NoC-based MPSoC, is basically **concerned with performance guarantees with respect to time constraints and commitment to deadlines**.
+
+6. The basic terms used in timing and contention analysis within NoC in relation to the real-time performance and predictability challenge: 
+>1. **NoC performance guarantees**
+>2. **Throughput**
+>3. **End-to-end latency**
+>4. **Packet latency**
+>5. **Basic packet latency**
+>6. **Network jitter**
+>7. **Worst case packet latency** : this is the worst case network jitter value: depends on: switching technique, the flow control, the arbitration policy, the scheduling policy and above all the instantaneous traffic flow characteristics which originate from the task mapping and the modeled application.
+>8. **Packet deadline**
+
+----
+
+####3 NoC architectures for QoS guarantees
+
+1. NoC designs are classified into two main categories: best effort services (BE) and guaranteed services(GS)
+>1. A BE NoC guarantees only the correctness and completion of transmission.
+>2. GS NoC guarantees commitments to performance bounds, in real time GS NoCs are the **main concern**. 
+
+#####3.1 Circuit Switched NoCs
+
+
+

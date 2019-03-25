@@ -1,0 +1,180 @@
+## Survey on Real-Time Network-on-Chip Architectures
+---
+##Keywords: 
+**scalable, predictability,packet loss, latency, jitter,throughput, QoS: BE and GS, bandwidth,SDM, lane division multiplexing, TDM, looping containers, virtual circuits  **
+
+---
+###Abstract
+1. Real time applications make out a significant portion of the embedded field. 
+
+2. NoC *imposes complex constraint*  on overall system design. 
+
+3. Areas are QoS support, fault tolerance and adaptivity. 
+
+---
+###1. Intro
+1. Recent developments in nanotech allowed the integration of multiple processing elements **(PE's)** onto a single chip -> **MPSoC**. 
+
+2. NoC have been proposed as the *emerging solution* for the increasingly complicated communication requirements of MPSoCs and future Many-Cores. NoCs offer a **scalable and flexible ** communication infrastructure with highly supported modularity and powerful performance.
+
+3. Merit of MPSoC lies in their massive computational power and unique energy efficiency in a compact design. 
+
+4. **Constraint:**  real-time communication performance relies on both the logical result as well as the completion time bound. 
+(This means both the computation and the communication between the components must complete within certain deadlines for the system to behave correctly.)
+---
+###2. Real-Time Challenges in NoC Design
+ 1. Extra paramount constraint: **predictability**: Messages belonging to a real-time flow have a strict deadline denoting the maximum time by which they must reach their destination.
+ (*Note:  For hard real-time systems : no deadline is allowed to be missed even under worst case communication scenarios, as it would cause a catastrophic consequence.*)
+ 
+ 2. This means, transmission delays between the NoC routers must be predictable in order to be able to guarantee an end-to-end latency which in the worst case does not exceed the imposed deadline.
+ 
+ 3. Predictability is challenging constraint because the medium is shared between several concurrent applications and congestion situations. 
+ 
+ 4. So, aim is to have **guaranteed services ** in terms of bandwidth and latency. 
+ 
+ 5. Other constraints are : reliability and energy efficiency. 
+ 
+ 6. Continuous shrinking of silicon tech puts reliability and fault tolerance vulnerable. 
+ 
+ 7. Several conventional techniques to minimize NoC power consumption affect the timing behavior of the NoC. 
+ 
+ 8. For efficient execution of real-time applications on NoC-based MPSoCs is governed by a powerful task scheduling and mapping technique on the available cores. 
+ 
+ 9. Use of adaptive techniques is justified as real-time MPSoC's are subject to varying workloads and application-specific demands. 
+ ---
+###3. NoC Arch for QoS Support
+
+**Def: ** Quality of service denotes the ability of the network to provide the communication requirements and abide to the constraints imposed by the executed application.
+
+**Parameters:** packet loss, latency, jitter and throughput
+
+**2 categories:** 
+BE : best effort services (correctness and completion of transmission)
+GS: guranteed services (real-time throughput and latency QoS guarantees)
+
+1. According to Mello, to support QoS in NoC designs, several approaches: 
+> 1. tailoring the network dimesions to fit the bandwidth requirements of all executed tasks in the system. 
+> 2. supporting connection-oriented communication. 
+>3. implementing connection-less communication with priority scheduling. 
+> 4. hybrid combination of above
+
+####3.1 Connection-oriented approach
+1. Idea is based on **resource reservation**. communication links from the source to the final destination of the data are reserved establishing a complete connection path for the packets before being injected into the network.
+
+2. Implemented using : pure circuit switching or virtual circuits. 
+
+3. **Pure Circuit Switching**: communication is achieved over three steps: 
+> 1. path setup phase to check for free route and reserve the corresponding links. 
+>2. actual data transmission. 
+>3. cancelleation pahse to release the resources. 
+
+4. So, for hard real-time applications, this approach has indisputable advantage in terms of reliable QoS support providing hard throughput guarantees and tight latency bounds.
+
+5. With an established route is an ownership for the traffic source, routers complexity is reduced and data is transferred at full rate of the links with no contention.
+
+6. **latency:** it becomes only a factor of the route length and the dependency between traffics is confined to the route setup phase which fails or succeeds based on the traffic situation.
+
+7. **drawbacks**: non-scalability, path setup delay and inefficient resource utilization due to wasted resources to cover worst case behavior.
+
+8. SoCBUS: first pure circuite switched NoC: 
+>1. mesochronous clocking and a new packet based setup scheme. 
+>2. to establish communicaton path: special request packets are sent following a distributed dynamic minimum path routing. 
+>3. a req reaching its dest *locks* all the temporary reserved links travelled by the special packet.
+>4. a blocked request route at any node initiates a *retry phase* by retracting the partially established path and waiting for the occupied channels to become available. 
+
+9. SDM: Spatial division multiplexing: 
+>1. works in a synchronous circuit switching NoC. 
+
+10. LDM: Lane division multiplexing: 
+>1. allows physical separation between data streams. 
+>2.  links are divided into lanes and each lane can be used for separate physical connection. 
+> 3. a connection may use one or more lanes based on bandwidth requirements. 
+
+11. Pham proposes: 
+> 1. distributed dynamic path setup scheme based on backtracking probing to avoid blocked channels.
+>2. Instead of waiting  for busy channels to become available, the setup headers are allowed to flexibly backtrack and seek minimum path alternatives. 
+
+12. **Nostrum and AEthereal** : two NoC examples based on TDM for better resource utilization while maintaining the hard performance guarantees.
+>1. TDM - alternative to pure circuit switching which allows links to be shared in a contention-free scheme by reserving resources for specific points in time. 
+>2. Data are injected  into the network at dedicated time slots following a periodic schedule.
+>3. TDM schedules are either static or dynamically computed and they may be placed locally at each router for distributed routing or globally in the network interfaces (NIs) only for source routing.
+>4. **Nostrum **supports guaranteed service by implementation of **virtual circuits** based on TDM, where Virtual ckts are set up semi-statically with fixed routes at design time however with variable bandwidth in runtime using the concept of **looping containers**.
+>5. A special type of packets called container are loaded with information and are looped between the source and destination.
+>6. **AEthereal** supports both BE and GS traffic with static distributed TDM slot tables. Here, the TDM approach is implemented based on global synchronicity where all routers must always be in the same time slot.
+
+13. Check the table1 for comaparisions based on routing, clocking and traffic support for various implementations of NoC. 
+
+####3.2 Connection-Less approach
+
+Here, routers work in an independent manner. 
+
+1. Involves packet switching with priorities. 
+
+2. Typically used of NoC based MPSoCs in multifunctional systems where diverse applications run in parallel bidding for different service requirements *real-time or non-real-time*.
+
+3. *Traffic flows* are **clustered** according to their QoS requirements into different groups each assigned a priority value.
+
+4. In contention situations, higher priority flows are serviced first and have the right to interrupt the lower priority ones.
+
+5. Wormhole switching with virtual channels is typically used for
+its high throughput and low buffering requirements.
+
+6. Additionally, the prioritized traffic flows are highly applicable for a virtual channel flow control router, where each VC has a particular priority that corresponds to one of the traffic clusters.
+
+7. **Advantages** : benefits in terms of bandwidth and network resources utilization as well as adaptation to the varying network traffic.
+
+8. **Challenges**: in terms of complexity and latency problems in addition to weak QoS support due to sharing of resources which is always *critical* regarding *predictability*.
+
+9. **Comparision:**  3.1 vs 3.2
+>1. for variable bit-rate applications, connection-less approach proves better performance over connection-oriented approach in terms of guaranteed end-to-end delay for individual flows with better prediction of transmission latency.
+>2. However, these guarantees are only attainable for higher priority traffics.
+>3. Progression of lower priority traffics through the network highly depends on the load of the higher priority flows possibly leading to long time stalls.
+>4. Above problems can be tackled by presenting efficient priority assignment techniques, priority arbitration techniques, and architectural solutions.
+
+10. QNoC: 
+>1. it is a packet switching NoC supporting four different classes of communication services.
+>2. Each class has a fixed priority and additional service levels can be further defined by adhering priority ranking.
+>3. Packets with higher priority are serviced first and round robin arbitration is applied for contending packets within same service level.
+
+11. BiNoC:
+>1. it supports GS traffic with a reduced end-to-end latency. 
+>2. It is based on wormhole switching with prioritized VCs'. 
+>3. However, it offers dynamically self-reconfigurable bidirectional communication channels based on the real-time traffic need providing better bandwidth utilization.
+>4. Like, Idle channels can temporarily change their direction of operation to resolve congestions on the opposite direction.
+
+12. There is some research done (check paper) to address the problem of blocked lower priority data. 2 approches: 
+>1. First, an aging mechanism which tackles the starvation problem of blocked data; the priority of the blocked data is incremented after certain number of cycles.
+>2. discarding mechanism which improves the bandwidth utilization by dropping packets of lower priority data if their deadlines are missed and if the number of dropped packets can be tolerated within the soft real-time application.
+
+13. PRNoC: Predictable Reconfigurable NoC: 
+>1. proposes a round based priority arbitration scheme. 
+>2. the term round refers to the set of packets arriving simultaneously when a new arbitration is initiated.
+>3. The proposed arbitration guarantees QoS for higher priority packets while avoiding starvation for lower priority ones.
+>4. Here Network Interface (NI) component supports PE(processing element) reconfiguration. 
+>5. Furthermore, switches support both deterministic XY routing as well as the odd-even turn adaptive routing model.
+
+14. Last para discusses about techniques like GALS NoC, quota setting etc. 
+
+####3.3 Hybrid  Techniques
+
+1. connection-oriented approach can provide hard performance guarantees for GS traffics while connection-less approach offers soft guarantees with better adaptation to the varying network traffic as well as better bandwidth and resource utilization.
+
+2. real-time applications, mainly targeting MPSoCs, invoke a **mixture** of traffic types with different predictability and QoS requirements. So, hybrid NoC designs are promoted to provide the right mix of soft and hard real-time guarantees and to efficiently handle both streaming and best effort traffics generated by realtime applications.
+
+3. MANGO NoC: typical asynchronous hybrid architecture
+>1. routers internally consist of a BE router and a GS router implemented separately.
+>2. The BE router supports simple source-routing for connection-less data packets.
+>3. GS router utilizes (VCs) routing to establish hard GS connections
+
+4. Lusala proposes a hybrid real time NoC : 
+>1. it consists of two sub-networks: circuit- and packet switching.
+>2. The circuit switching sub-network is based on a combination between the SDM and TDM techniques in an attempt to provide a guaranteed service with increased path diversity and improved resource utilization.
+>3. This significantly improves performance. 
+>4. Results are shown in table3 of paper. 
+
+
+
+
+
+
+

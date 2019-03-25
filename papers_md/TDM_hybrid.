@@ -1,0 +1,17 @@
+##Energy-Efficient TDM Hybrid-Switched NoC for Hetrogeneous Multicore systems
+
+---
+#####Keywords: 
+**fsdfs**
+
+---
+###1. Abstract
+
+1. Traditional packet-switched NoCs, which have the flexibility of connecting diverse computation and storage devices, are facing great challenges to meet the performance requirements within the energy budget due to latency and energy consumption associated with buffering and routing at each router.
+
+2. Here, packet-switched and circuit-switched messages share the same communication fabric by partitioning the network through time-division multiplexing (TDM).
+
+3. Improvement in system performance happens by reducing communication latency and alleviating network congestion. 
+
+4. Better energy efficiency is achieved by reducing buffering in routers and in turn enabling aggressive power gating. 
+
