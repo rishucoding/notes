@@ -127,10 +127,151 @@ $ git add README
 ```
 
 
+### 2.3 Viewing the Commit History
+```sh
+$ git log
+```
+>this command lists each commit with its SHA-1 checksum, the author’s name and email, the date written, and the commit message.
+
+```sh
+$ git log -p -2
+#or
+$ git log --patch -2
+```
+>This shows the difference (the patch output) introduced in each commit.
+
+>This is very helpful for code review or to quickly browse what happened during a series of commits that a collaborator has added.
+
+```sh
+$ git log --stat
+```
+>  prints below each commit entry a list of modified files, how many files were changed, and how many lines in those files were added and removed. It also puts a summary of the information at the end.
 
 
+ ```sh
+ $ git log --pretty=oneline
+ ```
+ > he oneline option prints each commit on a single line, which is useful if you’re looking at a lot of commits. 
 
- 
+**NOte:**
+>difference between author and committer? The author is the person who originally wrote the work, whereas the committer is the person who last applied the work. So, if you send in a patch to a project and one of the core members applies the patch, both of you get credit — you as the author, and the core member as the committer.
+
+### 2.4 Undoing Things
+
+```sh
+$ git commit --amend
+```
+>One of the common undos takes place when you commit too early and possibly forget to add some files, or you mess up your commit message. If you want to redo that commit, make the additional changes you forgot, stage them, and commit again using the --amend option
+
+> This command let's you edit the commit message, stage the necessary files
+
+```sh
+$ git commit -m "initial commit"
+$ git add forgotten_file
+$ git commit --amend
+```
+
+**Unstaging a staged file:**
+```sh
+$ git add *
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+    renamed:    README.md -> README
+    modified:   CONTRIBUTING.md
+$ git reset HEAD CONTRIBUTING.md
+
+```
+
+**Unmodifying a modified file**
+
+```sh
+$ git checkout -- CONTRIBUTING.md
+$git status
+```
+>What if you realize that you don’t want to keep your changes to the CONTRIBUTING.md file? 
+> git checkout -- <file> is used to discard the changes in working directory. 
+
+### 2.5 Working with remotes
+
+1. Remote repositories are versions of your project that are hosted on the Internet or network somewhere.
+
+2. Collaborating with others involves managing these remote repositories and pushing and pulling data to and from them when you need to share work. 
+
+```sh
+$ git remote
+$ git remote -v
+```
+> To see the remote servers configured! 
+> -v shows you the URLs that Git has stored for the shortname to be used when reading and writing to that remote:
+
+
+**Adding remote repositories:**
+
+```sh
+$ git remote
+$ git remote add tracking_notes https://github.com/rishucoding/notes
+$ git remote -v
+$ git fetch pb
+```
+>  To add a new remote Git repository as a shortname you can reference easily, run git remote add <shortname> <url>
+> fetch all the information from pb that we don't have in our repo. 
+
+**Fetching and pulling from remotes: **
+```sh
+$ git fetch <remote>
+```
+>The command goes out to that remote project and pulls down all the data from that remote project that you don’t have yet. After you do this, you should have references to all the branches from that remote, which you can merge in or inspect at any time.
+
+>  It’s important to note that the git fetch command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or modify what you’re currently working on. You have to merge it manually into your work when you’re ready.
+
+**NOTE**: == $ git pull ==  command will automatically fetch and then merge that remote branch into your current branch.
+
+**Pushing to your remotes**
+> When you have your project at a point that you want to share, you have to push it upstream.
+
+```sh
+$ git push origin master
+```
+> The command for this is simple: git push <remote> <branch>. 
+> This command works only if you cloned from a server to which you have write access and if nobody has pushed in the meantime.
+
+**Inspecting a remote**
+> If you want to see more information about a particular remote, you can use the git remote show <remote> command
+
+```sh
+$ git remote show origin
+```
+
+**Renaming and removing remotes**
+```sh
+$ git remote rename pb paul
+$ git remote
+origin
+paul
+$ git remote remove paul
+$ git remote
+origin
+
+````
+
+### Git Branches
+
+```sh
+$ git branch
+```
+> lists all the branches. 
+
+```sh
+$ git branch new_one
+$ git branch
+$ git checkout new_one
+```
+> creates a new branch "new_one"
+> make the branch active
+
 
 
 
