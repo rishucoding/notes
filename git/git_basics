@@ -1,0 +1,141 @@
+
+1.  git has an incredible branching system for non-linear development
+
+2. Git thinks of its data more like a series of snapshots of a miniature filesystem.
+
+3. git has three main states that your files can reside in: committed, modified, and staged: ![ ](/home/rishu/Documents/notes/git/areas.png  "the three states")
+> 1. Committed means that the data is safely stored in your local database.
+>2. Modified means that you have changed the file but have not committed it to your database yet.
+>3. Staged means that you have marked a modified file in its current version to go into your next commit snapshot.
+
+4. >1. The Git directory is where Git stores the metadata and object database for your project.
+>2. The working directory is a single checkout of one version of the project. These files are pulled out of the compressed database in the Git directory and placed on disk for you to use or modify.
+>3. The staging area is a file, generally contained in your Git directory, that stores information about what will go into your next commit.
+
+5. Install git via: 
+```sh
+$ sudo apt-get install git-all
+```
+
+To setup a default editor for git: 
+```sh
+$ git config --global core.editor vim
+```
+___
+###2.1 Git basics
+
+1. One should know : be able to configure and initialize a repository, begin and stop tracking files, and stage and commit changes. We’ll also show you how to set up Git to ignore certain files and file patterns, how to undo mistakes quickly and easily, how to browse the history of your project and view changes between commits, and how to push and pull from remote repositories.
+
+2. To start controlling an existing directory with git: 
+Go to the desired directory and do "$ git init"
+ 
+
+3. The basic commands used always are: 
+```bash
+$ git add abc.c
+$ git add xyz.txt
+$ git commit -m 'adding functions and data'
+```
+ To get a copy of an existing git repo: 
+```sh
+$ git clone https://github.com/libgit2/libgit2
+```
+>1. creates a directory named libgit2
+>2. initializes a .git directory inside it
+>3. pulls down all the data for that repository
+>4. checks out a working copy of the latest version
+
+ To clone a repo with a different name, you can specify the new direcotry name as an additional arguement:
+```sh
+$ git clone https://github.com/libgit2/libgit2 mylibgit
+``` 
+
+### 2.2 Recording Changes to the Repository
+
+1. Typically, you’ll want to start making changes and committing snapshots of those changes into your repository each time the project reaches a state you want to record.
+
+2.  each file in your working directory can be in one of two states: tracked or untracked.
+Untracked basically means that Git sees a file you didn’t have in the previous snapshot (commit)
+![ ](/home/rishu/Documents/notes/git/lifecycle.png  "Lifecycle")
+
+3. Checking the Status of Your Files
+```sh
+$ git status
+$ git status -s 
+$ git status --short
+```
+(To get a short status)
+
+4. git add simply means “add precisely this content to the next commit”
+
+5. Ignoring files: 
+
+
+The rules for the patterns you can put in the .gitignore file are as follows:
+
+    Blank lines or lines starting with # are ignored.
+
+    Standard glob patterns work, and will be applied recursively throughout the entire working tree.
+
+    You can start patterns with a forward slash (/) to avoid recursivity.
+
+    You can end patterns with a forward slash (/) to specify a directory.
+
+    You can negate a pattern by starting it with an exclamation point (!).
+
+6. To see what you’ve changed but not yet staged, type 
+```sh
+git diff
+```
+That command compares what is in your working directory with what is in your staging area. The result tells you the changes you’ve made that you haven’t yet staged.
+
+7. If you want to see what you’ve staged that will go into your next commit, you can use 
+```sh
+git diff --staged
+```
+This command compares your staged changes to your last commit
+
+8. 
+```sh
+$ git commit -m "Story 182: Fix benchmarks for speed"
+[master 463dc4f] Story 182: Fix benchmarks for speed
+ 2 files changed, 2 insertions(+)
+ create mode 100644 README
+```
+
+Here, console log shows: which branch you commited to (master here),what SHA-1 checksum the commit has (463dc4f), how many files were changed, and statistics about lines added and removed in the commit.
+
+9. **Skipping the staging area:**
+Adding the -a option to the git commit command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip the git add part:
+```sh
+git commit -a -m 'added new benchmarks'
+```
+
+10. **Removing files**
+```sh
+$ rm PROJECTS.md
+$ git status
+$ git rm PROJECTS.md
+$ git status
+```
+
+11. **Moving a file**
+```sh
+$ mv README.md README
+$ git rm README.md
+$ git add README
+```
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
