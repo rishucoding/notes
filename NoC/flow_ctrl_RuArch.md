@@ -2,7 +2,7 @@
 
 #### Keywords ####
 
-1. **Question: ** When two packets trying to use the same link at the same time? *Handling the contention? * 
+1. **Question: ** When two packets trying to use the same link at the same time? *Handling the contention?* 
 *choices* : buffer, drop, misroute the packet not being serviced!  
 
 2. packets are buffered in the router till it gets a productive output port! 
