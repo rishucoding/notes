@@ -7,7 +7,7 @@
 
 2. packets are buffered in the router till it gets a productive output port! 
 > 2 cases to buffer: 
->>1. not getting the productive port due to conflict with other packets.
+>>1. not getting the productive port due to conflict with other packets in the same router.
 >>2.  due to lack of buffer availability at the next router. 
 
 3. upstream router: router from which packet originates.
@@ -56,7 +56,7 @@
 As flow control is based on handshaking between adjacent routers : as in if an injected packet wants to go to North router, then north router will give feedback that a buffer is empty. 
 >4. switch allocation: when multiple flits are competing for the same output port: which of the flit has to be chosen (arbitration)
 >5. switch traversal: finally, flits are going to traverse by the switch (max 5 flits can traverse at the same time:: 5 input ports and 5 ouptut ports)
-These operations happen inside the router. After this *Line Traversal* happens. 
+These operations happen inside the router. After this *Link Traversal* happens. 
 
 14. **Router pipeline:**
 >1. BW(buffer write) -> RC (route computation) -> VA (virtual channel allocation) -> SA (switch allocation) -> ST (switch traversal) 
