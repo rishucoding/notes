@@ -1,0 +1,28 @@
+###Approaching the Theoretical Limits of a Mesh NoC with a 16-Node Chip Prototype in 45nm SOI ###
+___
+#### Abstract ####
+1. case study of a chip prototype of 16-node, 4*4 mesh NoC fabricated in 45nm SOI CMOS
+2. aims to simultaneously optimize energy-latency-throughput for unicasts, multicasts, and broadcasts. 
+3. define and analyze the theoritical limits of a mesh NoC in latency, throughput and energy
+4. approaching these limits via microarchitecture and circuit techniques
+___
+
+####Keywords####
+
+___
+####Introduction ####
+
+1. baseline mesh NoC: 
+>actions in this order: BW(buffer write) -> NRC( network route computation) ; only for head flits -> SA( switch allocation) -> VA (virtual channel allocation); only for head flits -> BR( buffer read) -> ST (switch traversal) -> LT (link traversal) 
+> only ST and LT actually move the flits toward the destination. 
+
+2. consider a k*k mesh; two traffic types: unicast and broadcast; each NIC(network interface controller) injects flits into the network according to a bernoulli process of rate R
+> injection @random, uniformly distributed destinations for unicasts and from a random, uniformly distributed source to all nodes for broadcasts. 
+
+3. For unicast: average hop count H~average~ = average latency  = 2*(k+1)/3
+
+### Proposed NoC chip design ### 
+
+1. packet switched design, each router with 5 i/o ports; each input port has two message classes; one for request and one for response to avoid message-level deadlocks in cache-coherent multicores. 
+
+2. 

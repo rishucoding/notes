@@ -1,0 +1,19 @@
+### A 4.6Tbits/s, 3.6GHz Single-cycle NoC Router with a Novel Switch Allocator in 65nm CMOS ###
+___
+#### Abstract ####
+1. design of NoC is very important for a scalable multi core systems. 
+2. NoC is required to provide extremely fast and high bandwidth communication, yet meet tight power and area budgets. 
+3. discussion on on-chip-network router for a 36 core shared-memory CMP 
+4. designs targets an aggressive clock freq of 3.6GHz - 
+> 1. requiring a novel high throughput and low latency switch allocation mechanism
+> 2. a non-speculative single-cycle router pipeline which uses advanced bundles to remove control setup overhead.
+>3. a  low-complexity virtual channel allocator and a dynamically-managed shared buffer design which uses prefetching to minimize critical path delay.
+
+___
+
+####Keywords####
+buses and crossbars vs NoC
+___
+####Introduction ####
+
+1. design able to achieve a higher data rate of 920Gbits/s while using a shorter router pipeline. 
