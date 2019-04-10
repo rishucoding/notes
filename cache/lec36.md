@@ -16,7 +16,7 @@
 
 >**spatial locality**: address X accessed at time t, address X+1 accessed at time t+dt. (nearby location accessed, tend to sequentially move through data )
 
-![slide1](/home/rishu/Documents/notes/cache/images/Selection_007.jpg  "slide1") 
+![slide1](./images/Selection_007.jpg  "slide1") 
 
 5. **inclusive**: everything in L1 can also be found in L2.. this means if L1 is of size 32kB, and L2 is of size 256kB.. so: L2 has only 224 kB of space for new data and so, there is a duplication of data. (Though, this makes design of cache coherence protocol easier. )
 
