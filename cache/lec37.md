@@ -2,7 +2,7 @@
 
 **keywords:** 
 
-1. organisation of cache : assume the cache contains 64B of data, minimum granularity of keeping a work in one line is 8byte
+1. organisation of cache : assume the cache contains 64B of data, minimum granularity of keeping a word in one line is 8byte
 
 2. let's say the processor generates a 40-bit address: the last three bits will choose which byte to select from a line(refer to a specific byte), the next three bytes will be index of line in data array
 
