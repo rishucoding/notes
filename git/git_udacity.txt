@@ -1,0 +1,71 @@
+1) version control: any system that allows systematic versioning of content.
+2) commits are user created checkpoint/snapshot, each one representing a version of the content.
+ > $ git log // history of commits
+ Every commit has a unique id: hash, author and date details and a message to tell what
+ has changed since the last message.
+
+ > $ git diff (commit_id_1) (commit_id_2) // to compare differences between two commits
+    where commit_id_2 is the later commit
+
+3) README : a file that gives general description of what the project does and how to use it.
+
+4) repository: a collection of files
+
+5) $ git log --stat // gives statistics about which have changed in each commit.
+// this is helpful to understand what changes have been done in the upstream repository.
+// gives a clear idea about what files have been modified, created in a nice manner.
+
+After doing this, we can check $ git diff (commit_ID_1) (commit_ID_2)
+to observe the changes made in a particular commit.
+
+6) 'clone': biologically it means a plant or animal having the same genes from which it was
+    produced.
+    So, $ git clone sdfsdf.git // downloads a exact copy of this repo
+    Some details here: https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone
+
+7) HEAD pointer - the commit at which present repository exist.
+   detatch the head - this is used to switch to different commit. When HEAD is not at the tip of
+   commit log, git warns saying "you are in detached HEAD state"
+
+8) $ git checkout <Commit_ID>// it is used to restore to  a previous version.
+    // this will switch the head pointer to <Commit_ID>.Correspondingly, the state of directory
+    also changes. so, if you do $ git log after checkout, the <Commit_ID> is on top.
+    Also, $git status shows the status of files at this point and "in red " shows HEAD detached.
+    Now, to go to the latest commit, do $ git checkout master
+
+9) Question on behavior of git checkout:
+    Checking out an earlier commit will change the state of at least one file ?
+    This is sometimes true. Git doesn't allow you to save a new commit if no files have been
+    updated, so you might think this is always true. However, it's possible to do the following:
+
+
+    > Save a commit (call this commit 1).
+    > Update some files and save another commit (call this commit 2).
+    > Change all the files back to their state during commit 1, then save again (call this commit 3).
+
+This sometimes happens if commit 2 contained a bug, and it's important to fix the bug quickly. The
+easiest thing to do might be to remove all the changes introduced by commit 2 to fix the bug, then
+figure out how to safely reintroduce the changes later.
+
+At this point, commit 3 is the latest commit, so if you checkout commit 1, none of the files will be
+changed.
+
+10) every git repo stores some metadata which tracks the history and versions of different files.
+This data is stored in .git directory(hidden directory) inside repo.
+Why hidden? beacuse end user don't need to interact with this data.
+
+11) $git status // shows which files have changed since the last commit
+
+12) $ git add <filename> // this adds file to the staging area. For these file, one can commit with
+a message.
+
+13) If you accidently add a file to the staging area, you can remove it using $git reset <filename>
+
+14) $git diff // just this simple command tells the difference between staging area and working
+directory.
+
+15) To see the differnce between staging area and last recent commit: $ git diff --staged
+
+16) $ git reset --hard // discards any changed in the working directory or the staging area.
+(*WARNING* : Be cautios when using this command)
+
